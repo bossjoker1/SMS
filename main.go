@@ -14,13 +14,13 @@ func UpdateFields() map[string]interface{} {
 		mp   = make(map[string]interface{})
 		temp = "default"
 	)
-	fmt.Println("请输入你想修改的字段即响应的值(end退出)：")
-	for{
+	fmt.Println("请输入你想修改的字段即相应的值(end退出)：")
+	for {
 		reader := bufio.NewReader(os.Stdin)
 		res, _, _ := reader.ReadLine()
 		temp = string(res)
 		array := strings.Fields(temp)
-		if temp == "end" || len(array) == 1{
+		if temp == "end" || len(array) == 1 {
 			break
 		}
 		mp[array[0]] = array[1]
@@ -28,12 +28,12 @@ func UpdateFields() map[string]interface{} {
 	return mp
 }
 
-func main()  {
+func main() {
 
 	var op = 1
 	fmt.Printf("------欢迎使用学生信息管理系统------\n\n")
 	fmt.Printf("$学生基本信息操作：\n")
-	fmt.Printf("1.增加学生信息----2.修改学生信息----3.删除学生信息----4.打印指定学生信息----5.打印所有学生信息\n\n" )
+	fmt.Printf("1.增加学生信息----2.修改学生信息----3.删除学生信息----4.打印指定学生信息----5.打印所有学生信息\n\n")
 	fmt.Printf("$课程信息操作\n")
 	fmt.Printf("6.增加课程信息----7.修改课程信息----8.删除课程信息----9.打印指定课程信息----10.打印所有课程信息\n\n")
 	fmt.Printf("选修表信息操作\n")
@@ -43,7 +43,7 @@ func main()  {
 	fmt.Printf("16.平均成绩----17.最好和最差成绩----18.优秀率----19----不及格人数----20.成绩排名信息\n")
 	fmt.Printf("21.学生基本信息和选课信息----0.退出系统\n")
 
-	for{
+	for {
 		fmt.Printf("\n请输入你的选择：")
 		_, _ = fmt.Scanf("%d", &op)
 		if 0 == op {
@@ -65,9 +65,9 @@ func main()  {
 			_, _ = fmt.Scan(&student.Sdept)
 			fmt.Printf("是否获取奖学金：")
 			_, _ = fmt.Scan(&student.Scholarship)
-			
+
 			err := Model.AddStudent(&student)
-			if err != nil{
+			if err != nil {
 				fmt.Println(err)
 			}
 		case 2:
@@ -76,11 +76,11 @@ func main()  {
 			_, _ = fmt.Scan(&sno)
 			mp := UpdateFields()
 			err := Model.UpdateStudent(sno, mp)
-			if err != nil{
+			if err != nil {
 				fmt.Println(err)
-			}else{
+			} else {
 				fmt.Println("更新后的字段：")
-				student,_ := Model.GetOneStudent(sno)
+				student, _ := Model.GetOneStudent(sno)
 				PrintStudent(student)
 			}
 		case 3:
@@ -88,7 +88,7 @@ func main()  {
 			fmt.Println("请输入想删除学生的学号：")
 			_, _ = fmt.Scan(&sno)
 			err := Model.DeleteStudent(sno)
-			if err != nil{
+			if err != nil {
 				fmt.Println(err)
 			}
 		case 4:
@@ -96,15 +96,15 @@ func main()  {
 			fmt.Println("请输入要打印学生的学号：")
 			_, _ = fmt.Scan(&sno)
 			student, err := Model.GetOneStudent(sno)
-			if err != nil{
+			if err != nil {
 				fmt.Println(err)
-			}else{
+			} else {
 				PrintStudent(student)
 			}
 		case 5:
 			fmt.Println("打印所有学生信息如下：")
 			students := Model.GetStudents()
-			for _, s := range students{
+			for _, s := range students {
 				PrintStudent(s)
 			}
 		case 6:
@@ -121,7 +121,7 @@ func main()  {
 			fmt.Printf("学生系别：")
 
 			err := Model.AddCourse(&course)
-			if err != nil{
+			if err != nil {
 				fmt.Println(err)
 			}
 		case 7:
@@ -130,11 +130,11 @@ func main()  {
 			_, _ = fmt.Scan(&cno)
 			mp := UpdateFields()
 			err := Model.UpdateCourse(cno, mp)
-			if err != nil{
+			if err != nil {
 				fmt.Println(err)
-			}else{
+			} else {
 				fmt.Println("更新后的字段：")
-				course ,_ := Model.GetCourse(cno)
+				course, _ := Model.GetCourse(cno)
 				PrintCourse(course)
 			}
 		case 8:
@@ -142,7 +142,7 @@ func main()  {
 			fmt.Println("请输入想删除学生的学号：")
 			_, _ = fmt.Scan(&cno)
 			err := Model.DeleteCourse(cno)
-			if err != nil{
+			if err != nil {
 				fmt.Println(err)
 			}
 		case 9:
@@ -150,15 +150,15 @@ func main()  {
 			fmt.Println("请输入要打印课程的课程号：")
 			_, _ = fmt.Scan(&cno)
 			course, err := Model.GetCourse(cno)
-			if err != nil{
+			if err != nil {
 				fmt.Println(err)
-			}else{
+			} else {
 				PrintCourse(course)
 			}
 		case 10:
 			fmt.Println("打印所有课程信息如下：")
 			courses := Model.GetCourses()
-			for _, c := range courses{
+			for _, c := range courses {
 				PrintCourse(c)
 			}
 		case 11:
@@ -171,7 +171,7 @@ func main()  {
 			fmt.Printf("课程成绩：")
 			_, _ = fmt.Scan(&sc.Grade)
 			err := Model.AddSc(&sc)
-			if err != nil{
+			if err != nil {
 				fmt.Println(err)
 			}
 		case 12:
@@ -180,11 +180,11 @@ func main()  {
 			_, _ = fmt.Scan(&sno, &cno)
 			mp := UpdateFields()
 			err := Model.UpdateSC(cno, sno, mp)
-			if err != nil{
+			if err != nil {
 				fmt.Println(err)
-			}else{
+			} else {
 				fmt.Println("更新后的字段：")
-				sc,_ := Model.GetOneSC(cno, sno)
+				sc, _ := Model.GetOneSC(cno, sno)
 				PrintSC(sc)
 			}
 		case 13:
@@ -192,7 +192,7 @@ func main()  {
 			fmt.Println("请输入想删除选修信息的学号和课程号：")
 			_, _ = fmt.Scan(&sno, &cno)
 			err := Model.DeleteOneSC(cno, sno)
-			if err != nil{
+			if err != nil {
 				fmt.Println(err)
 			}
 		case 14:
@@ -204,22 +204,22 @@ func main()  {
 			fmt.Println("请输入要打印选修信息的学号和课程号：")
 			_, _ = fmt.Scan(&sno, &cno)
 			sc, err := Model.GetOneSC(cno, sno)
-			if err != nil{
+			if err != nil {
 				fmt.Println(err)
-			}else{
+			} else {
 				PrintSC(sc)
 			}
 		case 15:
 			fmt.Println("打印所有选修信息如下：")
 			scs := Model.GetSC()
-			for _, sc := range scs{
+			for _, sc := range scs {
 				PrintSC(sc)
 			}
 		case 16:
 			var sdept string
 			fmt.Println("请输入要查询的系别：")
 			_, _ = fmt.Scan(&sdept)
-			fmt.Println(sdept + "系的平均成绩为：", API.GetAvg(sdept))
+			fmt.Println(sdept+"系的平均成绩为：", API.GetAvg(sdept))
 
 		case 17:
 			var sdept string
@@ -231,18 +231,18 @@ func main()  {
 			var sdept string
 			fmt.Println("请输入要查询的系别：")
 			_, _ = fmt.Scan(&sdept)
-			fmt.Println(sdept + "系的优秀率为：", API.GetExcellentRate(sdept))
+			fmt.Println(sdept+"系的优秀率为：", API.GetExcellentRate(sdept))
 		case 19:
 			var sdept string
 			fmt.Println("请输入要查询的系别：")
 			_, _ = fmt.Scan(&sdept)
-			fmt.Println(sdept + "系的不及格人数为：", API.GetFailedSum(sdept))
+			fmt.Println(sdept+"系的不及格人数为：", API.GetFailedSum(sdept))
 		case 20:
 			var sdept string
 			fmt.Println("请输入要查询的系别：")
 			_, _ = fmt.Scan(&sdept)
 			gos := API.GradeOrder(sdept)
-			for _, gs := range gos{
+			for _, gs := range gos {
 				PrintGradeOrder(gs)
 			}
 		case 21:
@@ -253,7 +253,7 @@ func main()  {
 			fmt.Println("学生基本信息：")
 			PrintStudent(student)
 			fmt.Println("选修信息")
-			for _, ci := range courseInfos{
+			for _, ci := range courseInfos {
 				PrintCourseInfo(ci)
 			}
 		default:
