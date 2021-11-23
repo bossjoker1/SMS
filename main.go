@@ -114,8 +114,8 @@ func main() {
 			_, _ = fmt.Scan(&course.Cno)
 			fmt.Printf("课程名：")
 			_, _ = fmt.Scan(&course.Cname)
-			fmt.Printf("先修关系：")
-			_, _ = fmt.Scan(&course.Cpno)
+			//fmt.Printf("先修关系：")
+			//_, _ = fmt.Scan(&course.Cpno)
 			fmt.Printf("学分：")
 			_, _ = fmt.Scan(&course.Ccredit)
 			fmt.Printf("学生系别：")
@@ -139,7 +139,7 @@ func main() {
 			}
 		case 8:
 			var cno string
-			fmt.Println("请输入想删除学生的学号：")
+			fmt.Println("请输入想删除课程的课程号：")
 			_, _ = fmt.Scan(&cno)
 			err := Model.DeleteCourse(cno)
 			if err != nil {
